@@ -90,7 +90,7 @@ module datapath_tb();
     loadc = 0;      // reset loadc
 
     // print output of top level module, should be the sum of 13 and 42 (= 55)
-    if (dut.data_out !== 16'b0000000000110111) begin 
+    if (dut.datapath_out !== 16'b0000000000110111) begin 
       $display("ERROR: datapath_out is %b, expected 16'b0000000000110111", dut.datapath_out);
       err = 1;
     end
