@@ -29,7 +29,7 @@ module datapath(datapath_in, vsel, writenum, write, readnum, clk, loada, loadb, 
     Bin = bsel ? {11'b0, datapath_in[4:0]} : sout; 
   end
 
-  always_ff (posedge clk) begin 
+  always_ff @(posedge clk) begin 
     // each load enabled register is updated on posedge clk
     if (loada)   // if loada is selected, the value of data_out is copied to aout
       aout <= data_out; 
