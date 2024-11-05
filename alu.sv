@@ -12,7 +12,7 @@ module ALU(Ain,Bin,ALUop,out,Z);
       2'b10: out = Ain & Bin; 
       default: out = ~Bin; 
     endcase 
-    Z = (out == 16'b0) ? 1 : 0;
+    Z = (out[14:0] == 15'b0) ? 1 : 0;
   end 
   
 endmodule
