@@ -1,4 +1,4 @@
-module shifter_tb ();
+module tb_shifter ();
   reg [15:0] in;
   reg [1:0] shift;
   wire [15:0] sout;
@@ -15,7 +15,7 @@ shifter dut (.in(in), .shift(shift), .sout(sout));
     #10 // wait one clock cycle 
           if sout !== 16'b1111000011001111
             begin
-              $display ("Error, got sout is %b, expected 1111000011001111", sout);
+              $display ("Error, got sout is %b, expected 1111000011001111", tb_shifter.dut.sout);
               error = 1;
             end 
 
@@ -26,7 +26,7 @@ shifter dut (.in(in), .shift(shift), .sout(sout));
     #10 // wait one clock cycle 
           if sout !== 16'b1110000110011110
             begin
-              $display ("Error, got sout is %b, expected 1110000110011110", sout);
+              $display ("Error, got sout is %b, expected 1110000110011110", tb_shifter.dut.sout);
               error = 1;
             end 
     //Test case 3: right shift by 1 MSB becomes 0
@@ -35,7 +35,7 @@ shifter dut (.in(in), .shift(shift), .sout(sout));
     #10 // wait one clock cycle 
           if sout !== 16'b0111100001100111
             begin
-              $display ("Error, got sout is %b, expected 0111100001100111", sout);
+              $display ("Error, got sout is %b, expected 0111100001100111", tb_shifter.dut.sout);
               error = 1;
             end 
     //Test case: right shift by 1, MSB is a copy of in's MSB
@@ -44,7 +44,7 @@ shifter dut (.in(in), .shift(shift), .sout(sout));
     #10 // wait one clock cycle 
           if sout !== 16'b1111100001100111
            begin
-              $display ("Error, got sout is %b, expected 1111100001100111", sout);
+              $display ("Error, got sout is %b, expected 1111100001100111", tb_shifter.dut.sout);
               error = 1;
             end
     if (error == 0) 
@@ -56,7 +56,7 @@ shifter dut (.in(in), .shift(shift), .sout(sout));
        
   end
     
-endmodule
+endmodule: tb_shifter
                  
                
 
