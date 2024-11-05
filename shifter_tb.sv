@@ -3,8 +3,10 @@ module shifter_tb ();
   reg [1:0] shift;
   wire [15:0] sout;
   reg error;
-
-  shifter dut(.in(in), .shift(shift), .sout(sout));
+  
+//instantiation of the DUT (Device Under Test)
+shifter dut (.in(in), .shift(shift), .sout(sout));
+  
   initial begin
     error = 0;
     //Test case 1: no shift
