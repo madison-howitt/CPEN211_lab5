@@ -7,9 +7,6 @@ module regfile_tb();
   
   regfile dut(.data_in(data_in), .writenum(writenum), .write(write), .readnum(readnum), .clk(clk), .data_out(data_out));
 
-  //wire [7:0] write_out, read_out;               // initialize 8-bit buses for decoded values of writenum and readnum
-  //reg [15:0] R0, R1, R2, R3, R4, R5, R6, R7;    // initialize 16-bit registers 
-
   initial begin   // forever looping clock 
         forever begin
             clk = 1'b0; #5; 
@@ -51,7 +48,6 @@ module regfile_tb();
     // PASSED
 
 
-    
     // TEST CASE #2: check for j = 91, write = 0, R3
 
     data_in = 16'b0000000001011011;    // data_in = 91
