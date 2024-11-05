@@ -1,4 +1,4 @@
-module tb_regfile();
+module regfile_tb();
   // declarations from Lab 5 outline
   reg [15:0] data_in;
   reg [2:0] writenum, readnum;
@@ -109,4 +109,4 @@ module tb_regfile();
 
     $stop;
   end
-endmodule: tb_regfile
+endmodule: regfile_tb
