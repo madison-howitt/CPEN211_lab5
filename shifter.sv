@@ -6,7 +6,7 @@ module shifter(in,shift,sout);
 
 
   //Shifter logic which is based on the value of the shift contol signal
-  always_comb begin
+  always @* begin
     case (shift)
       2'b00: sout = in; //no shifting
       2'b01: sout = in << 1; //shift left by 1 bit
