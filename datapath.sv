@@ -13,19 +13,20 @@ module datapath(datapath_in, vsel, writenum, write, readnum, clk, loada, loadb, 
   reg [15:0] data_in, data_out, aout, in, sout, Ain, Bin, out;
   reg Z; 
 
+  // instantiate regfile
+  regfile reg_block(.data_in(data_in), .writenum(writenum), .write(write), 
+                      .readnum(readnum), .clk(clk), .data_out(data_out));
+  // instantiate shifter
+  shifter shift_block(.in(in), .shift(shift), .sout(sout));
+  // instantiate ALU 
+  ALU alu_block(.Ain(Ain), .Bin(Bin), .ALUop(ALUop), .out(out), .Z(Z)); 
+  
   always_comb begin 
     data_in = vsel ? datapath_in : datapath_out;   // if vsel is true, datapath_in is copied to data_in
                                                    // else the output datapath_out is copied to data_in
-    // instantiate regfile
-    regfile reg_block(.data_in(data_in), .writenum(writenum), .write(write), 
-                      .readnum(readnum), .clk(clk), .data_out(data_out));
-    // instantiate shifter 
-    shifter shift_block(.in(in), .shift(shift), .sout(sout));
     // copy values to Ain and Bin based on asel and bsel respectively 
     Ain = asel ? 16'b0 : aout;
     Bin = bsel ? {11'b0, datapath_in[4:0]} : sout; 
-    // instantiate ALU 
-    ALU alu_block(.Ain(Ain), .Bin(Bin), .ALUop(ALUop), .out(out), .Z(Z)); 
   end
 
   always_ff (posedge clk) begin 
