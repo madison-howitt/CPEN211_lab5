@@ -1,13 +1,14 @@
-module tb_ALU();
+module ALU_tb();
   // declarations from Lab 5 outline
   reg [15:0] Ain, Bin;
   reg [1:0] ALUop;
   reg [15:0] out;
-  reg Z;
+  reg Z, err;
 
   ALU dut(.Ain(Ain), .Bin(Bin), .ALUop(ALUop), .out(out), .Z(Z));
 
-  initial begin 
+  initial begin
+    err = 0; 
 
     // TEST CASE #1: check for Ain = 6, Bin = 4
     
@@ -17,28 +18,52 @@ module tb_ALU();
     ALUop = 2'b00;   // Test for '+'
     #5
 
-    $display("out is %b, expected 16'b0000000000001010", tb_ALU.dut.out);   // 6 + 4 = 10
-    $display("Z is %b, expected 0", tb_ALU.dut.Z);                          // 6 + 4 != 0, so Z = 0
+    if (out !== 16'b0000000000001010) begin
+      $display("ERROR: out is %b, expected 16'b0000000000001010", dut.out);
+      err = 1;
+    end 
+    if (Z !== 0) begin
+      $display("ERROR: out is %b, expected 0", dut.Z);
+      err = 1;
+    end 
     #5
 
     ALUop = 2'b01;   // Test for '-'
     #5
 
-    $display("out is %b, expected 16'b0000000000000010", tb_ALU.dut.out);   // 6 - 4 = 2
-    $display("Z is %b, expected 0", tb_ALU.dut.Z);                          // 6 - 4 != 0, so Z = 0
+    if (out !== 16'b0000000000000010) begin
+      $display("ERROR: out is %b, expected 16'b0000000000000010", dut.out);
+      err = 1;
+    end 
+    if (Z !== 0) begin
+      $display("ERROR: out is %b, expected 0", dut.Z);
+      err = 1;
+    end 
 
     ALUop = 2'b10;   // Test for bitwise '&'
     #5
 
-    $display("out is %b, expected 16'b0000000000000100", tb_ALU.dut.out);   // 6 & 4 = 4
-    $display("Z is %b, expected 0", tb_ALU.dut.Z);                          // 6 & 4 != 0, so Z = 0
+    if (out !== 16'b0000000000000100) begin
+      $display("ERROR: out is %b, expected 16'b0000000000000100", dut.out);
+      err = 1;
+    end 
+    if (Z !== 0) begin
+      $display("ERROR: out is %b, expected 0", dut.Z);
+      err = 1;
+    end 
 
     ALUop = 2'b11;   // Test for bitwise '~'
     #5
 
-    $display("out is %b, expected 16'b1111111111111011", tb_ALU.dut.out);   // ~4 = 65531
-    $display("Z is %b, expected 0", tb_ALU.dut.Z);                          // ~4 != 0, so Z = 0
-
+    if (out !== 16'b1111111111111011) begin
+      $display("ERROR: out is %b, expected 16'b1111111111111011", dut.out);
+      err = 1;
+    end 
+    if (Z !== 0) begin
+      $display("ERROR: out is %b, expected 0", dut.Z);
+      err = 1;
+    end
+    
     // PASSED
     
     
@@ -50,27 +75,50 @@ module tb_ALU();
     ALUop = 2'b00;   // Test for '+'
     #5
 
-    $display("out is %b, expected 16'b0000000000010000", tb_ALU.dut.out);   // 8 + 8 = 16
-    $display("Z is %b, expected 0", tb_ALU.dut.Z);                          // 8 + 8 != 0, so Z = 0
-    #5
+    if (out !== 16'b0000000000010000) begin
+      $display("ERROR: out is %b, expected 16'b0000000000010000", dut.out);
+      err = 1;
+    end 
+    if (Z !== 0) begin
+      $display("ERROR: out is %b, expected 0", dut.Z);
+      err = 1;
+    end
 
     ALUop = 2'b01;   // Test for '-'
     #5
 
-    $display("out is %b, expected 16'b0000000000000000", tb_ALU.dut.out);   // 8 - 8 = 0
-    $display("Z is %b, expected 1", tb_ALU.dut.Z);                          // 8 - 8 = 0, so Z = 1
+    if (out !== 16'b0000000000000000) begin
+      $display("ERROR: out is %b, expected 16'b0000000000000000", dut.out);
+      err = 1;
+    end 
+    if (Z !== 1) begin
+      $display("ERROR: out is %b, expected 1", dut.Z);
+      err = 1;
+    end 
 
     ALUop = 2'b10;   // Test for bitwise '&'
     #5
 
-    $display("out is %b, expected 16'b0000000000000100", tb_ALU.dut.out);   // 8 & 8 = 8
-    $display("Z is %b, expected 0", tb_ALU.dut.Z);                          // 8 & 8 != 0, so Z = 0
-
+    if (out !== 16'b0000000000000100) begin
+      $display("ERROR: out is %b, expected 16'b0000000000000100", dut.out);
+      err = 1;
+    end 
+    if (Z !== 0) begin
+      $display("ERROR: out is %b, expected 0", dut.Z);
+      err = 1;
+    end 
+    
     ALUop = 2'b11;   // Test for bitwise '~'
     #5
 
-    $display("out is %b, expected 16'b1111111111110111", tb_ALU.dut.out);   // ~8 = 65527
-    $display("Z is %b, expected 0", tb_ALU.dut.Z);                          // ~8 != 0, so Z = 0
+    if (out !== 16'b1111111111110111) begin
+      $display("ERROR: out is %b, expected 16'b1111111111110111", dut.out);
+      err = 1;
+    end 
+    if (Z !== 0) begin
+      $display("ERROR: out is %b, expected 0", dut.Z);
+      err = 1;
+    end 
 
     // PASSED
 
@@ -83,29 +131,55 @@ module tb_ALU();
     ALUop = 2'b00;   // Test for '+'
     #5
 
-    $display("out is %b, expected 16'b0000000000000000", tb_ALU.dut.out);   // 5 + (-5) = 0
-    $display("Z is %b, expected 1", tb_ALU.dut.Z);                          // 5 + (-5) = 0, so Z = 1
-    #5
+    if (out !== 16'b0000000000000000) begin
+      $display("ERROR: out is %b, expected 16'b0000000000000000", dut.out);
+      err = 1;
+    end 
+    if (Z !== 1) begin
+      $display("ERROR: out is %b, expected 1", dut.Z);
+      err = 1;
+    end 
 
     ALUop = 2'b01;   // Test for '-'
     #5
 
-    $display("out is %b, expected 16'b0000000000001010", tb_ALU.dut.out);   // 5 - (-5) = 10
-    $display("Z is %b, expected 0", tb_ALU.dut.Z);                          // 5 - (-5) != 0, so Z = 0
+    if (out !== 16'b0000000000001010) begin
+      $display("ERROR: out is %b, expected 16'b0000000000001010", dut.out);
+      err = 1;
+    end 
+    if (Z !== 0) begin
+      $display("ERROR: out is %b, expected 0", dut.Z);
+      err = 1;
+    end 
 
     ALUop = 2'b10;   // Test for bitwise '&'
     #5
 
-    $display("out is %b, expected 16'b0000000000000101", tb_ALU.dut.out);   // 5 & -5 = 5
-    $display("Z is %b, expected 0", tb_ALU.dut.Z);                          // 5 & -5 != 0, so Z = 0
+    if (out !== 16'b0000000000000101) begin
+      $display("ERROR: out is %b, expected 16'b0000000000000101", dut.out);
+      err = 1;
+    end 
+    if (Z !== 0) begin
+      $display("ERROR: out is %b, expected 0", dut.Z);
+      err = 1;
+    end 
 
     ALUop = 2'b11;   // Test for bitwise '~'
     #5
 
-    $display("out is %b, expected 16'b0000000000000100", tb_ALU.dut.out);   // ~(-5) = 32762
-    $display("Z is %b, expected 0", tb_ALU.dut.Z);                          // ~(-5) != 0, so Z = 0
+    if (out !== 16'b0000000000000100) begin
+      $display("ERROR: out is %b, expected 16'b0000000000000100", dut.out);
+      err = 1;
+    end 
+    if (Z !== 0) begin
+      $display("ERROR: out is %b, expected 0", dut.Z);
+      err = 1;
+    end
 
     // PASSED 
+
+    if (err == 0) 
+      $display("Passed all tests!"); 
 
     $stop;
   end 
