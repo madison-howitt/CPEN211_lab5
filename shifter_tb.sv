@@ -13,7 +13,7 @@ module shifter_tb ();
     #10 // wait one clock cycle 
           if sout !== 16'b1111000011001111
             begin
-              $display ("Error, got sout is %b, expected 1111000011001111" , tb_shift.dut.sout);
+              $display ("Error, got sout is %b, expected 1111000011001111" , tb_shifter.dut.sout);
               error = 1;
             end 
 
@@ -24,7 +24,7 @@ module shifter_tb ();
     #10 // wait one clock cycle 
           if sout !== 16'b1110000110011110
             begin
-              $display ("Error, got sout is %b, expected 1110000110011110" , tb_shift.dut.sout);
+              $display ("Error, got sout is %b, expected 1110000110011110" , tb_shifter.dut.sout);
               error = 1;
             end 
     //Test case 3: right shift by 1 MSB becomes 0
@@ -33,7 +33,7 @@ module shifter_tb ();
     #10 // wait one clock cycle 
           if sout !== 16'b0111100001100111
             begin
-              $display ("Error, got sout is %b, expected 0111100001100111" , tb_shift.dut.sout);
+              $display ("Error, got sout is %b, expected 0111100001100111" , tb_shifter.dut.sout);
               error = 1;
             end 
     //Test case: right shift by 1, MSB is a copy of in's MSB
@@ -42,13 +42,13 @@ module shifter_tb ();
     #10 // wait one clock cycle 
           if sout !== 16'b1111100001100111
             begin
-              $display ("Error, got sout is %b, expected 1111100001100111" , tb_shift.dut.sout);
+              $display ("Error, got sout is %b, expected 1111100001100111" , tb_shifter.dut.sout);
               error = 1;
             end
     if (error == 0) 
-      $display("Shift.sv passed all tests!);
+      $display("Shifter.sv passed all tests!);
                else
-                 $display("Shift.sv failed atleast 1 test");
+                 $display("Shifter.sv failed atleast 1 test");
                  $stop;
        end
 endmodule
