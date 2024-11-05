@@ -1,5 +1,5 @@
 module shifter(in,shift,sout);
-  //declerations of inputs and output
+  //declarations of inputs and output
   input [15:0] in; // The 16-bit input that is to be shifted
   input [1:0] shift; //The 2-bit contol signal for the shift operation
   output reg [15:0] sout; //The 16-bit shifted output
