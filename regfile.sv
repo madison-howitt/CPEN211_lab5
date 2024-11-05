@@ -3,7 +3,7 @@ module regfile(data_in,writenum,write,readnum,clk,data_out);
   input [15:0] data_in;
   input [2:0] writenum, readnum;
   input write, clk;
-  output [15:0] data_out;
+  output reg [15:0] data_out;
 
   wire [7:0] write_out, read_out;               // initialize 8-bit buses for decoded values of writenum and readnum
   reg [15:0] R0, R1, R2, R3, R4, R5, R6, R7;    // initialize 16-bit registers 
