@@ -1,4 +1,4 @@
-module tb_shifter ();
+module shifter_tb ();
   reg [15:0] data_in; // renamed 'in' to 'data_in'
   reg [1:0] shift;
   wire [15:0] sout;
@@ -52,5 +52,4 @@ module tb_shifter ();
 
     $stop;
   end
-    
-endmodule
+endmodule: shifter_tb
