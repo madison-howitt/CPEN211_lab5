@@ -99,8 +99,8 @@ module ALU_tb();
     ALUop = 2'b10;   // Test for bitwise '&'
     #5
 
-    if (out !== 16'b0000000000000100) begin
-      $display("ERROR: out is %b, expected 16'b0000000000000100", dut.out);
+    if (out !== 16'b0000000000001000) begin
+      $display("ERROR: out is %b, expected 16'b0000000000001000", dut.out);
       err = 1;
     end 
     if (Z !== 0) begin
@@ -155,8 +155,8 @@ module ALU_tb();
     ALUop = 2'b10;   // Test for bitwise '&'
     #5
 
-    if (out !== 16'b0000000000000101) begin
-      $display("ERROR: out is %b, expected 16'b0000000000000101", dut.out);
+    if (out !== 16'b0000000000000001) begin
+      $display("ERROR: out is %b, expected 16'b0000000000000001", dut.out);
       err = 1;
     end 
     if (Z !== 0) begin
@@ -183,4 +183,4 @@ module ALU_tb();
 
     $stop;
   end 
-endmodule: tb_ALU
+endmodule: ALU_tb
