@@ -3,7 +3,7 @@ module datapath(datapath_in, vsel, writenum, write, readnum, clk, loada, loadb, 
   input [15:0] datapath_in; 
   input [2:0] writenum, readnum;
   input [1:0] shift, ALUop; 
-  input vsel, write, clk, loada, loadb, asel, asel, loads, loadc;  
+  input vsel, write, clk, loada, loadb, asel, bsel, loads, loadc;  
 
   // declare outputs of top-level module 
   output reg [15:0] datapath_out; 
