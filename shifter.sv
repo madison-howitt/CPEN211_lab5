@@ -6,13 +6,13 @@ module shifter(in,shift,sout);
 
 
   //Shifter logic which is based on the value of the shift contol signal
-  always @* begin
+  always_comb begin
     case (shift)
       2'b00: sout = in; //no shifting
       2'b01: sout = in << 1; //shift left by 1 bit
       2'b10: sout = in >> 1; //shift right by 1 bit
       2'b11: sout = {in[15], in[15:1]}; //arithmetic shift right by 1 bit while retaining the MSB
-      default: sout = 16'b0000000000000000
+      default: sout = 16'b0000000000000000;
         endcase
     end    
 endmodule      
