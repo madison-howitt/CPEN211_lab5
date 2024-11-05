@@ -78,7 +78,7 @@ module tb_ALU();
     // TEST CASE #3: check for Ain = 5, Bin = -5
     
     Ain = 16'b0000000000000101;  
-    Bin = 16'b1000000000000101;   
+    Bin = 16'b1111111111111011;   
     
     ALUop = 2'b00;   // Test for '+'
     #5
