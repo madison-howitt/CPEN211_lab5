@@ -22,8 +22,8 @@ module tb_regfile();
     writenum = 3'b000;
     readnum = 3'b000;
     write = 0;
+    err = 0; 
     #10;   // wait one clock cycle 
-
     
     // TEST CASE #1: check for j = 42, write = 1, R3
     
@@ -32,12 +32,18 @@ module tb_regfile();
     write = 1;                         // write is true, so 42 is written to R3
     #10; 
 
-    $display("R3 is %b, expected 16'b0000000000101010", tb_regfile.dut.R3);
+    if (dut.R3 !== 16'b0000000000101010) begin 
+      $display("ERROR: R3 is %b, expected 1111000011001111", dut.R3);
+      err = 1;
+    end
 
     readnum = 3'b011;   // reading R3
     #5;                 // read not coordinated to clk, so don't need to wait a full clock cycle
-    
-    $display("data_out is %b, expected 16'b0000000000101010", tb_regfile.dut.data_out);
+
+    if (dut.data_out !== 16'b0000000000101010) begin 
+      $display("ERROR: data_out is %b, expected 0000000000101010", dut.data_out);
+      err = 1;
+    end
     #5; 
 
     // displays 42 -  42 was written to R3 and then read from R3 
@@ -53,12 +59,18 @@ module tb_regfile();
     write = 0;                         // write is false, so 91 is not be written to R3
     #10; 
 
-    $display("R3 is %b, expected 16'b0000000000101010", tb_regfile.dut.R3);   // R3 is still 42 since write = 0 
+    if (dut.R3 !== 16'b0000000000101010) begin   // R3 is still 42 since write = 0 
+      $display("ERROR: R3 is %b, expected 0000000000101010", dut.R3);
+      err = 1;
+    end
 
     readnum = 3'b011;   // reading R3
     #5;                 // read not coordinated to clk, so don't need to wait a full clock cycle
-    
-    $display("data_out is %b, expected 16'b0000000000101010", tb_regfile.dut.data_out);
+
+    if (dut.data_out !== 16'b0000000000101010) begin 
+      $display("ERROR: data_out is %b, expected 0000000000101010", dut.data_out);
+      err = 1;
+    end
     #5;
 
     // displays 42 -  91 was NOT written to R3 so the previous value was read from R3 
@@ -73,12 +85,18 @@ module tb_regfile();
     write = 0;                         // write is false, so 166 is not be written to R3
     #10; 
 
-    $display("R6 is %b, expected 16'bxxxxxxxxxxxxxxxx", tb_regfile.dut.R6);   // R3 is still 42 since write = 0 
+    if (dut.R6 !== 16'bxxxxxxxxxxxxxxxx) begin 
+      $display("ERROR: R6 is %b, expected xxxxxxxxxxxxxxxx", dut.R6);
+      err = 1;
+    end
 
     readnum = 3'b110;   // reading R3
     #5;                 // read not coordinated to clk, so don't need to wait a full clock cycle
-    
-    $display("data_out is %b, expected 16'bxxxxxxxxxxxxxxxx", tb_regfile.dut.data_out);
+
+    if (dut.data_out !== 16'bxxxxxxxxxxxxxxxx) begin 
+      $display("ERROR: data_out is %b, expected xxxxxxxxxxxxxxxx", dut.data_out);
+      err = 1;
+    end
     #5; 
 
     // displays x - 166 was NOT written to R6 so the previous value was read from R6
@@ -86,6 +104,8 @@ module tb_regfile();
 
     // PASSED 
 
+    if (err = 0) 
+      $display("Passed all tests!");
 
     $stop;
   end
