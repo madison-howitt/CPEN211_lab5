@@ -12,7 +12,8 @@ module shifter(in,shift,sout);
       2'b01: sout = in << 1; //shift left by 1 bit
       2'b10: sout = in >> 1; //shift right by 1 bit
       2'b11: sout = {in[15], in[15:1]}; //arithmetic shift right by 1 bit while retaining the MSB
+      // same as sout = in >> 1; in[15] = in[14];
       default: sout = 16'b0000000000000000;
-        endcase
-    end    
+    endcase
+  end    
 endmodule      
