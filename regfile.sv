@@ -12,6 +12,7 @@ module regfile(data_in,writenum,write,readnum,clk,data_out);
   decode38 decode_read(readnum, read_out);      // decode readnum in binary to read_out in one-hot 
 
   always_comb begin 
+    data_out = 16'b0;
     case (read_out) // one register value R0-R7 is copied to data_out depending on readnum (decoded to read_out)
       8'b00000001: data_out = R0; 
       8'b00000010: data_out = R1;  
@@ -41,10 +42,9 @@ module regfile(data_in,writenum,write,readnum,clk,data_out);
   
 endmodule
 
-module decode38(a, b);
-    input [2:0] a; 
-    output [7:0] b;
-  always_comb begin
-    b = 1 << a;   // shift 1 t the left by 'a' bit positions
-  end 
+module decode38(input [2:0] a, output reg [7:0] b);
+    always_comb begin
+        b = 8'b00000000;  // Default value to prevent latch inference
+        b = 1 << a;       // Shift operation
+    end
 endmodule
