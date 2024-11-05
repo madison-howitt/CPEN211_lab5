@@ -1,8 +1,8 @@
 module ALU(Ain,Bin,ALUop,out,Z);
   // declarations from Lab 5 outline
-  input [15:0] Ain, Bin;
+  input signed [15:0] Ain, Bin;
   input [1:0] ALUop;
-  output reg [15:0] out;
+  output signed reg [15:0] out;
   output reg Z;
 
   always_comb begin 
