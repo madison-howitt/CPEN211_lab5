@@ -7,11 +7,16 @@ shfter.sv lines 1-13 & 16-19
 shifter_tb.sv lines 1-55
 ALU_tb.sv lines 124-186
 regfile.sv lines 1-25
+datapath.sv lines 31-45
+datapath_tb.sv lines 32-37 & 97-160
 
 Madison (85739944) wrote the following lines of code: 
-shfter.sv lines 1-13 & 16-19
+shfter.sv lines 14-15
 ALU.sv lines 1-18 
 ALU_tb.sv lines 1-123
 regfile.sv lines 26-50
 regfile_tb.sv lines 1-108
+datapath.sv lines 1-30 
+datapath_tv.sv line 1-30 & 39-96
+lab5_top (3).sv lines 214-232 (copy-pasted from lab 3 HEX definitions) 
 
