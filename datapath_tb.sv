@@ -94,6 +94,63 @@ module datapath_tb();
       $display("ERROR: datapath_out is %b, expected 16'b0000000000110111", dut.datapath_out);
       err = 1;
     end
+    // TEST 2
+    
+    datapath_in = 16'b0000000000011001;   // input 25
+    vsel = 1; 
+    write = 1; 
+    writenum = 3'b010;   // write to register R2
+    #10;                 // wait one clock cycle
+    write = 0;           // reset write to avoid unintended writes
+
+    datapath_in = 16'b0000000000001010;   // input 10
+    vsel = 1; 
+    write = 1; 
+    writenum = 3'b100;   // write to register R4
+    #10;                 // wait one clock cycle
+    write = 0;           // reset write to avoid unintended writes
+
+    vsel = 0;
+
+    // load 25 from R2 to register B 
+    readnum = 3'b010; 
+    loadb = 1;
+    #10;                // wait one clock cycle 
+    loadb = 0;          // reset loadb
+
+    // check that the value was read correctly from the register
+    if (dut.data_out !== 16'b0000000000011001) begin 
+      $display("ERROR: data_out is %b, expected 16'b0000000000011001", dut.data_out);
+      err = 1;
+    end
+
+    readnum = 3'b100;   // load 10 from R4 to register A
+    loada = 1; 
+    #10;                // wait one clock cycle 
+    loada = 0; 
+
+    // check that the value was read correctly from the register 
+    if (dut.data_out !== 16'b0000000000001010) begin 
+      $display("ERROR: data_out is %b, expected 16'b0000000000001010", dut.data_out);
+      err = 1;
+    end
+
+    // set ALU to subtract 25 - 10
+    shift = 2'b0;   // no shift
+    asel = 0;       // copies the value of A
+    bsel = 0;       // copies the value of B
+    ALUop = 2'b01;  // subtracting so ALUop = 2'b01
+    loadc = 1;      // putting output of ALU into datapath_out so loadc is true 
+    loads = 0; 
+    #10;            // wait one clock cycle
+    loadc = 0;      // reset loadc
+
+    // print output of top level module, should be the difference of 25 and 10 (= 15)
+    if (dut.datapath_out !== 16'b0000000000001111) begin 
+      $display("ERROR: datapath_out is %b, expected 16'b0000000000001111", dut.datapath_out);
+      err = 1;
+    end
+
 
     if (err == 0)
       $display("Passed all tests!"); 
