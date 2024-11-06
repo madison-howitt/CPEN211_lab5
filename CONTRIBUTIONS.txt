@@ -1,0 +1,17 @@
+// CONTRIBUTIONS
+Sibanda, Thandeka (42623942)
+Howitt, Madison (85739944)
+
+Thandeka (42623942) wrote the following lines of code: 
+shfter.sv lines 1-13 & 16-19
+shifter_tb.sv lines 1-55
+ALU_tb.sv lines 124-186
+regfile.sv lines 1-25
+
+Madison (85739944) wrote the following lines of code: 
+shfter.sv lines 1-13 & 16-19
+ALU.sv lines 1-18 
+ALU_tb.sv lines 1-123
+regfile.sv lines 26-50
+regfile_tb.sv lines 1-108
+
